@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:14
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=simple_bank
+    ports:
+      - "6000:5432"
+  server:
+   build:
+     context: ./server
+     dockerfile: Dockerfile
+   ports:
+     - "8080:8080"
+   environment:
+     - DB_SOURCE=postgresql://root:secret@postgres:5432/simple_bank?sslmode=disable
+   depends_on:
+     - postgres
+   command: go run main.go
+  client:
+     build:
+      context: ./client
+      dockerfile: Dockerfile
+     ports:
+      - "3000:3000"
+     environment:
+     - HOST=server
+     depends_on:
+     - server
+     command: npm run dev
