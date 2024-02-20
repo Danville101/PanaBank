@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: server
+  template:
+    metadata:
+      labels:
+        component: server
+    spec:
+      containers:
+        - name: server
+          # image: <aws_account_id>.dkr.ecr.<aws_region>.amazonaws.com/<repository_name> 
+          ports: 
+            - containerPort: 5000
+          env: 
+          - name: DB_SOURCE
+            vlaue: PG_URL_PASSWORd
+          - name: REDIS_HOST
+            value: redis-cluster-ip-service
+          - name: REDIS_POST
+            value: "6379"
+          - name: PGUSER 
+            value: postgres
+          - name: PGHOST 
+            value: postgres-cluster-ip-service
+          - name: PGPORT 
+            value: "5432"
+          - name: PGDATABASE 
+            value: postgres
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                 name: pgpassword
+                 key: PG_URL_PASSWORd
+
