@@ -18,23 +18,20 @@ spec:
           ports: 
             - containerPort: 5000
           env: 
-          - name: DB_SOURCE
-            vlaue: PG_URL_PASSWORd
-          - name: REDIS_HOST
-            value: redis-cluster-ip-service
-          - name: REDIS_POST
-            value: "6379"
-          - name: PGUSER 
-            value: postgres
-          - name: PGHOST 
-            value: postgres-cluster-ip-service
-          - name: PGPORT 
-            value: "5432"
-          - name: PGDATABASE 
-            value: postgres
-          - name: PGPASSWORD
-            valueFrom:
-              secretKeyRef:
-                 name: pgpassword
-                 key: PG_URL_PASSWORd
+           -  name: DB_USER
+              value: admin
+           -  name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                 name: pgpassword  
+                 key: PGPASSWORD
+           -  name: DB_HOST
+              value: postgres-cluster-ip-service
+           - name: DB_PORT
+             value: "5432"
+           - name : DB_NAME
+             value: panda_bank
+           - name : DB_SSL
+             value: sslmode=disable # chnage when ssl is set up 
+           - DB_PROTOCOL=postgresql
 

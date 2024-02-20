@@ -16,7 +16,13 @@ services:
    ports:
      - "8080:8080"
    environment:
-     - DB_SOURCE=postgresql://root:secret@postgres:5432/simple_bank?sslmode=disable
+     - DB_PROTOCOL=postgresql
+     - DB_USER=root
+     - DB_PASSWORD=secert
+     - DB_HOST=postgres
+     - DB_PORT=5432
+     - DB_NAME=panda_bank
+     - DB_SSL=sslmode=disable
    depends_on:
      - postgres
    command: go run main.go
