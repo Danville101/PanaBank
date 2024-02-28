@@ -14,8 +14,8 @@ This guide provides instructions for running our application using Docker Compos
 1. **Clone the Repository:**
 
 ```bash
-   git clone <repository-url>
-   cd <project-directory> 
+   git clone https://github.com/Danville101/PanaBank
+   cd PanaBank
 ```
 
 2. **Start Docker Containers:**
